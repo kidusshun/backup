@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="index.css" rel="stylesheet">
+    <script src="js/bootstrap.min.js"></script>
+    <title>Tour Lander|Pakages</title>
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const title = params.get('title');
+        let pkg;
+        async function retrieve() {
+            const response = await fetch(
+                `http://localhost:3333/package/?title=${title}`,{method: 'GET'}
+            ).then(response => response.json())
+             .then(data =>insert(data))
+             .catch(console.log(error))
+        }
+        function insert(pkg) {
+            console.log(pkg);
+            let header=document.getElementById('page-header')
+            let img =document.getElementById('country')
+            let departure=document.getElementById('depart')
+            let desc=document.getElementById('place-description')
+            let map=document.getElementById('map__image')
+            header.innerText=pkg.title
+            header.style.textTransform='capitalize'
+            console.log(header);
+            img.src=pkg.imageURL
+            const departureDate = new Date(pkg.departure);
+            const formattedDate = departureDate.toLocaleDateString('en-US', {year: 'numeric',month: 'long',day: 'numeric'});
+            departure.innerText=`Departure date: ${formattedDate}`
+            desc.innerText=pkg.description
+            map.src=pkg.mapURL
+        }
+        retrieve();
+    </script>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg py-0 header-footer-color">
+            <div class="container-fluid">
+                <div class="d-flex align-items-center">
+                    <button class="navbar-toggler justify-content-start border-white py-1 px-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <img src="src_pictures/menu-icon.png" alt="menu icon" width="25px" height="20px" >
+                    </button>
+                    <span class="p-3 d-flex flex-column align-items-start">
+                        <img class="img" src="src_pictures/logo.png" alt="company logo" width="50px" height="50px">
+                        <span class="text-warning">Travel Lander</span>
+                    </span>
+                </div>
+                <div class="collapse navbar-collapse justify-content-end align-items-end" id="navbarSupportedContent" style="height:100px;">
+                    <div class="me-5">
+                        <ul class="navbar-nav">
+                            <li class="nav-item px-3">
+                                <a class="nav-link text-white" href="index.html">Home</a>
+                            </li>
+                            <li class="nav-item px-3">
+                                <a class="nav-link text-white" href="4About_us.html">About us</a>
+                                <div class="mask" style="background-color: rgba(82, 76, 76, 0.829)"></div>
+                            </li>
+                            <li class="nav-item active-nav-item px-3">
+                                <a class="nav-link text-white" href="2Destinations.html">Destinations</a>
+                            </li>
+                            <li class="nav-item px-3">
+                                <a class="nav-link text-white" href="3Contact_us.html">Contact us</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <section class="bg-secondary rounded-circle p-1 mx-4">
+                    <div class="user-logo"><a title="My Account" href="7My_Account.html"><img class="user-logo__img" src="src_pictures/user-solid.svg" alt="user logo" height="25px" width="28px"></a></div>
+                </section>
+            </div>
+        </nav>
+    </header>
+    <div class="p-5">
+        <h1 class="h2" id="page-header"></h1>
+        <span class="place-name-container__rating">
+            <img class="place-name-conatiner__star" src="src_pictures/star-solid.svg" alt="Rating icon" width="20px" height="20px">
+            <img class="place-name-conatiner__star" src="src_pictures/star-solid.svg" alt="Rating icon" width="20px" height="20px">
+            <img class="place-name-conatiner__star" src="src_pictures/star-solid.svg" alt="Rating icon" width="20px" height="20px">
+            <img class="place-name-conatiner__star" src="src_pictures/star-solid.svg" alt="Rating icon" width="20px" height="20px">
+            <img class="place-name-conatiner__star" src="src_pictures/star-half.svg" alt="Rating icon" width="20px" height="20px">
+        </span>
+        <span class="place-name-conatiner__number">
+            4.5
+        </span> 
+    </div>
+    <div class="row gx-0">
+        <section class="dark-antique px-0 image-section col-lg-4">
+        <img class="image-section__image w-100" id="country" width="200px" height="500px" alt="picture">
+        </section>
+        <section class="dark-antique col-lg-8 px-5">
+            <h2 class="discription-container-date pb-4" id="depart" title="mm/dd/yy"></h2>
+            <p class="discription-container__date-p pb-4" id="place-description" > 
+            </p>
+            <div class="row gx-0 py-5">
+                <div class="travel packs col-6">
+                    <span class="packs__container"><image class="packs__image" src="src_pictures/calendar-days.svg" alt="Calander icon" width="20px" height="20px"> Travel</span>
+                    <br>
+                    <span class="packs__discription">5 days, 1 country and 2 cities</span>
+                </div>
+                <div class="accomodation packs col-6">
+                    <span class="packs__container"><image class="packs__image" src="src_pictures/bed.svg" alt="Calander icon" width="20px" height="20px"> Travel</span>
+                    <br>
+                    <span class="packs__discription">4 Nights</span>
+                </div>
+            </div>
+            <div class="row gx-0">
+                <div class="meal packs col-6">
+                    <span class="packs__container"><image class="packs__image" src="src_pictures/utensils.svg" alt="Calander icon" width="20px" height="20px"> Travel</span>
+                    <br>
+                    <span class="packs__discription">4 Breakfasts, 1 Be My Guest, 4 Lunches, 4 Dinners</span>
+                </div>
+                <div class="path packs col-6">
+                    <span class="packs__container"><image class="packs__image" src="src_pictures/location.svg" alt="Calander icon" width="20px" height="20px"> Travel</span>
+                    <br>
+                    <span class="packs__discription">5 days, 1 country and 2 cities</span>
+                </div>
+            </div>
+        </section>
+    </div>
+    <div class="map-container position-relative">
+        <div class="position-absolute end-0 px-3">
+            <button class="zoom__zoom border-0 lemon" id="zoom__in" onclick="zoomIn()" title="Zoom IN"><img src="src_pictures/plus-solid.svg" alt="Plus icon" width="20px" height="20px"></button>
+            <section class="blanck-space py-2 bg-primary"></section>
+            <button class="zoom__zoom border-0 lemon" id="zoom__out" onclick="zoomOut()" title="Zoom Out" type="submit"><img src="src_pictures/minus-solid.svg" alt="Minus icon" width="20px" height="20px"></button>
+        </div>
+        <div class="map overflow-scroll">
+            <img class="map__image" id="map__image" alt="map" width="80%" height="450px">
+        </div>
+        <div class="legend ocean position-absolute bottom-0">
+            <h3 class="legend__h3">Legend</h3>
+            <table class="w-25 table-legend">
+                <tr>
+                    <th>Symbole</th>
+                    <th>Description</th>
+                </tr>                    
+                <tr class=>
+                    <td >1</td>
+                    <td>Start location</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>End location</td>
+                </tr>
+                <tr>
+                    <td><img class="table__icon" src="src_pictures/plane-solid.svg" alt="plane icon" height="20px" width="20px"></td>
+                    <td>Plane</td>
+                </tr>
+                <tr>
+                    <td><img class="table__icon" src="src_pictures/ship-solid.svg" alt="ship icon" height="20px" width="20px"></td>
+                    <td>Ship</td>
+                </tr>                
+            </table>
+        </div>
+    </div>
+        <footer class="text-center text-lg-start text-white header-footer-color">
+            <div class="container p-4 pb-0">
+                <div class="row">
+                  <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
+                  </div>
+                  <hr class="w-100 clearfix d-md-none" />
+                  <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
+                    <h6 class="text-uppercase mb-4 font-weight-bold">Travel Lander</h6>
+                    <a href="4About_us.html" class="text-white d-block text-decoration-none">About us</a></p>
+                    <a href="3Contact_us.html" class="text-white d-block text-decoration-none">Contact us</a></p>
+                    <a href="6FAQ.html" class="text-white d-block text-decoration-none">FAQ</a>
+                  </div>
+                  <hr class="w-100 clearfix d-md-none" />
+                  <hr class="w-100 clearfix d-md-none" />
+                  <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mt-3">
+                    <h6 class="text-uppercase mb-4 font-weight-bold">Follow us</h6>
+                    <a class="d-block" href="http://www.facebook.com/"><img title="FaceBook" id="facebook_icon" src="src_pictures/facebook.png" alt="Facebook icon" width="40px" height="40px"></a>
+                    <a class="d-block" href="http://www.instagram.com/"><img title="Instagram" id="instgram_icon" src="src_pictures/instagram.png" alt="Instagram icon" width="40px" height="40px"></a>
+                    <a class="d-block" href="http://www.twitter.com/"><img title="Twitter" id="twitter_icon" src="src_pictures/twitter.png" alt="Twitter icon" width="40px" height="40px"></a>
+                  </div>
+                </div>
+            </div>
+            <div class="text-center p-2 container-fluid footer-bed-color">
+               <em><small>© 2020 All rights are reserved 2022</small></em>
+            </div>
+        </footer>
+
+<!--Zoom button-->
+    <script>
+        function zoomIn(){
+            document.getElementById('map__image').style.width="165%";
+        } 
+        function zoomOut(){
+            document.getElementById('map__image').style.width="75%";
+        } 
+    </script>
+</body>
+</html>

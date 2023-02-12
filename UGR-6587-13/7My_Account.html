@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="index.css" rel="stylesheet">
+    <script src="js/bootstrap.min.js"></script> 
+    <title>Travel Lander| My Account</title>
+    <script>
+        let token;
+        async function signin() {
+            const response = await fetch(
+                'http://localhost:3333/auth/signin',
+                {
+                    method:'POST',
+                    headers: {
+                        'content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        email:'vladmir@gmail.com',
+                        password:'secure'
+                    })
+                }
+            )
+            const data = await response.json();
+            if (data.access_token) {
+                token = data.access_token;
+            }
+        }
+
+        let contentObject;
+        async function content() {
+            if (!token){
+                await signin();
+            }
+            if (token){
+                const response = await fetch(
+                'http://localhost:3333/bookmarks',
+                {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                }
+            )
+            const data =await response.json();
+            contentObject=data;
+            }else{
+                console.log('unable to fetch content');
+            }
+           return contentObject 
+        }
+
+        async function run() {
+            const contentObject = await content();
+            create(contentObject);
+        }
+        run();
+        function create(contentObject) {
+             if(contentObject){
+                const container = document.getElementById('bookmark_container');
+                contentObject.forEach(data => {
+                const card =document.createElement('div');
+                card.className= 'col-5 pad card card-block shadow-lg ms-2 me-4 mt-4 px-0';
+                const form = document.createElement('form');
+                form.className = 'position-absolute top-0 end-0 opacity-75';
+                const button = document.createElement('button');
+                button.className = 'border border-0 pb-2';
+                button.title = 'delete bookmark';
+                button.type = 'button';
+                button.onclick='delete()';
+                button.addEventListener('click', async () =>{card.remove(); await deleteBookmark(data.id);} );
+                const image = document.createElement('img');
+                image.src = 'src_pictures/minus.svg';
+                image.alt = 'minus icon';
+                image.width = 20;
+                image.height = 20;
+                button.appendChild(image);
+                form.appendChild(button);
+                card.appendChild(form);
+                const img = document.createElement('img');
+                img.className = 'card-img-top';
+                img.alt = data.title;
+                img.height = 200;
+                img.src = data.imageURL;
+                card.appendChild(img);
+                const title = document.createElement('h3');
+                title.className = 'title';
+                title.textContent = data.title;
+                card.appendChild(title);
+                const body = document.createElement('div');
+                body.className = 'card-body';
+                const desc = document.createElement('p');
+                desc.className = 'card-text';
+                desc.textContent = data.description;
+                body.appendChild(desc);
+                const link = document.createElement('a');
+                link.href = data.link;
+                link.className = 'btn btn-success';
+                link.textContent = 'See more';
+                body.appendChild(link);
+                card.appendChild(body);
+                container.appendChild(card);
+            })
+            }else{
+                console.log('not iterable');
+            }
+        }
+
+        async function deleteBookmark(id){
+            const response= await fetch(
+                `http://localhost:3333/bookmarks/${id}`,
+                {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    }
+                }
+            )
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg py-0 header-footer-color">
+            <div class="container-fluid">
+                <div class="d-flex align-items-center">
+                    <button class="navbar-toggler justify-content-start border-white py-1 px-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <img src="src_pictures/menu-icon.png" alt="menu icon" width="25px" height="20px" >
+                    </button>
+                    <span class="p-3 d-flex flex-column align-items-start">
+                        <img class="img" src="src_pictures/logo.png" alt="company logo" width="50px" height="50px">
+                        <span class="text-warning">Travel Lander</span>
+                    </span>
+                </div>
+                <div class="collapse navbar-collapse justify-content-end align-items-end" id="navbarSupportedContent" style="height:100px;">
+                    <div class="me-5">
+                        <ul class="navbar-nav">
+                            <li class="nav-item px-3">
+                                <a class="nav-link text-white" href="index.html">Home</a>
+                            </li>
+                            <li class="nav-item px-3">
+                                <a class="nav-link text-white" href="4About_us.html">About us</a>
+                                <div class="mask" style="background-color: rgba(82, 76, 76, 0.829)"></div>
+                            </li>
+                            <li class="nav-item px-3">
+                                <a class="nav-link text-white" href="2Destinations.html">Destinations</a>
+                            </li>
+                            <li class="nav-item px-3">
+                                <a class="nav-link text-white" href="3Contact_us.html">Contact us</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <section class="active-nav-item rounded-circle p-1 mx-4">
+                    <div class="user-logo"><a title="My Account" href="7My_Account.html"><img class="user-logo__img" src="src_pictures/user-solid.svg" alt="user logo" height="25px" width="28px"></a></div>
+                </section>
+            </div>
+        </nav>
+    </header>
+    <div class="account-container p-5">
+        <div class="account-mid-container row gx-0">
+            <div class=" col-4 rounded-circle account-background d-flex align-items-center justify-content-center dark-antique ">
+                    <a href="7My_Account.html"><img class="account__image" src="src_pictures/user-solid.svg" alt="user logo" height="50px" width="50px"></a>
+            </div>
+            <div class=" col-8 customer-container px-4">
+                <div class="customer">
+                    <p id="user-name" class="h4 mb-0">Vladmir</p>
+                    <p id="email">vladmir@gmail.com</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="dark-antique">
+        <h2 class="p-3">Recommended Tours</h1>
+        <div class="pb-5 row gx-0 conatiner-fluid d-flex flex-row flex-nowrap overflow-auto pads-container">
+            <div class="col-2 card card-block shadow-lg ms-2 me-4 px-0">
+                <form class="position-absolute top-0 end-0 opacity-75"><button class="border border-0 pb-2" title="Save for later" type="submit"><img src="src_pictures/plus-solid.svg" alt="Plus icon" width="20px" height="20px"></button></form>
+                <img src="src_pictures/egypt.jpg" class="card-img-top" alt="Egyptian palace" height="200px" >
+                <div class="card-body">
+                <span class="card-title">
+                    <img class="pads__package__img" src="src_pictures/calendar-days.svg" height="15px" width="15px" alt="calander"> 3 Days 
+                    <img class="pads__package__img" src="src_pictures/paper-plane.svg" height="15px" width="15px" alt="paper-plane"> 2 cities
+                    <img class="pads__package__img" src="src_pictures/flag-regular.svg" height="15px" width="15px" alt="flag"> 1 country
+                </span>
+                <p class="card-text">Come and visit the Nile the beautiful city of Egypt.</p>
+                <a href="5package_egypt.html" class="btn btn-success">See more</a>
+                </div>
+            </div>
+            <div class="card col-3 card card-block shadow-lg me-4 px-0" >
+                <form class="position-absolute top-0 end-0 opacity-75"><button class="border border-0 pb-2" title="Save for later" type="submit"><img src="src_pictures/plus-solid.svg" alt="Plus icon" width="20px" height="20px"></button></form>
+                <img src="src_pictures/greek.jpg" class="card-img-top" alt="dubai city" height="200px" >
+                <div class="card-body">
+                <span class="card-title">
+                    <img class="pads__package__img" src="src_pictures/calendar-days.svg" height="15px" width="15px" alt="calander"> 5 Days 
+                    <img class="pads__package__img" src="src_pictures/paper-plane.svg" height="15px" width="15px" alt="paper-plane"> 2 cities
+                    <img class="pads__package__img" src="src_pictures/flag-regular.svg" height="15px" width="15px" alt="flag"> 1 country
+                </span>
+                <p class="card-text">Come and visit the astaunding art of classical architecture in Athens,Greek. </p>
+                <a href="5package_egypt.html" class="btn btn-success">See more</a>
+                </div>
+            </div>
+            <div class="col-2 card card-block shadow-lg me-4 px-0" >
+                <form class="position-absolute top-0 end-0 opacity-75"><button class="border border-0 pb-2" title="Save for later" type="submit"><img src="src_pictures/plus-solid.svg" alt="Plus icon" width="20px" height="20px"></button></form>
+                <img src="src_pictures/Jerusalem.jpg" class="card-img-top" alt="Temple of Jerusalem" height="200px" >
+                <div class="card-body">
+                <span class="card-title">
+                    <img class="pads__package__img" src="src_pictures/calendar-days.svg" height="15px" width="15px" alt="calander"> 5 Days 
+                    <img class="pads__package__img" src="src_pictures/paper-plane.svg" height="15px" width="15px" alt="paper-plane"> 2 cities
+                    <img class="pads__package__img" src="src_pictures/flag-regular.svg" height="15px" width="15px" alt="flag"> 1 country
+                </span>
+                <p class="card-text">Come and visit the historic city of Jerusalem.</p>
+                <a href="5package_egypt.html" class="btn btn-success">See more</a>
+                </div>
+            </div>
+            <div class="col-2 card card-block shadow-lg me-4 px-0" >
+                <form class="position-absolute top-0 end-0 opacity-75"><button class="border border-0 pb-2" title="Save for later" type="submit"><img src="src_pictures/plus-solid.svg" alt="Plus icon" width="20px" height="20px"></button></form>
+                <img src="src_pictures/dubai.jpg" class="card-img-top" alt="dubai city" height="200px" >
+                <div class="card-body">
+                <span class="card-title">
+                    <img class="pads__package__img" src="src_pictures/calendar-days.svg" height="15px" width="15px" alt="calander"> 5 Days 
+                    <img class="pads__package__img" src="src_pictures/paper-plane.svg" height="15px" width="15px" alt="paper-plane"> 2 cities
+                    <img class="pads__package__img" src="src_pictures/flag-regular.svg" height="15px" width="15px" alt="flag"> 1 country
+                </span>
+                <p class="card-text">Come and visit the futuristic city of Dubi.</p>
+                <a href="5package_egypt.html" class="btn btn-success">See more</a>
+                </div>
+            </div>
+            <div class="col-2 card card-block shadow-lg me-4 px-0" >
+                <form class="position-absolute top-0 end-0 opacity-75"><button class="border border-0 pb-2" title="Save for later" type="submit"><img src="src_pictures/plus-solid.svg" alt="Plus icon" width="20px" height="20px"></button></form>
+                <img src="src_pictures/gondar.png" class="card-img-top" alt="gondar castle" height="200px" >
+                <div class="card-body">
+                <span class="card-title">
+                    <img class="pads__package__img" src="src_pictures/calendar-days.svg" height="15px" width="15px" alt="calander"> 4 Days 
+                    <img class="pads__package__img" src="src_pictures/paper-plane.svg" height="15px" width="15px" alt="paper-plane"> 1 cities
+                    <img class="pads__package__img" src="src_pictures/flag-regular.svg" height="15px" width="15px" alt="flag"> 1 country
+                </span>
+                <p class="card-text">Come and visit the legendary and religious city of Gondar.</p>
+                <a href="5package_egypt.html" class="btn btn-success">See more</a>
+                </div>
+            </div>
+            <div class="col-2 card card-block shadow-lg me-4 px-0" >
+                <form class="position-absolute top-0 end-0 opacity-75"><button class="border border-0 pb-2" title="Save for later" type="submit"><img src="src_pictures/plus-solid.svg" alt="Plus icon" width="20px" height="20px"></button></form>
+                <img src="src_pictures/morroco.jpg" class="card-img-top" alt="morroc city" height="200px" >
+                <div class="card-body">
+                <span class="card-title">
+                    <img class="pads__package__img" src="src_pictures/calendar-days.svg" height="15px" width="15px" alt="calander"> 8 Days 
+                    <img class="pads__package__img" src="src_pictures/paper-plane.svg" height="15px" width="15px" alt="paper-plane"> 2 cities
+                    <img class="pads__package__img" src="src_pictures/flag-regular.svg" height="15px" width="15px" alt="flag"> 1 country
+                </span>
+                <p class="card-text">Come and visit the Beautiful terrain of Morroco </p>
+                <a href="5package_egypt.html" class="btn btn-success">See more</a>
+                </div>
+            </div>
+            <div class="card col-3 card card-block shadow-lg me-4 px-0" style="width: 18rem;">
+                <form class="position-absolute top-0 end-0 opacity-75"><button class="border border-0 pb-2" title="Save for later" type="submit"><img src="src_pictures/plus-solid.svg" alt="Plus icon" width="20px" height="20px"></button></form>
+                <img src="src_pictures/ertale.jpg" class="card-img-top" alt="Ertale" height="200px" >
+                <div class="card-body">
+                <span class="card-title">
+                    <img class="pads__package__img" src="src_pictures/calendar-days.svg" height="15px" width="15px" alt="calander"> 5 Days 
+                    <img class="pads__package__img" src="src_pictures/paper-plane.svg" height="15px" width="15px" alt="paper-plane"> 2 cities
+                    <img class="pads__package__img" src="src_pictures/flag-regular.svg" height="15px" width="15px" alt="flag"> 1 country
+                </span>
+                <p class="card-text">Visit the mesmerizing force of the nature in Ertale,Afar.</p>
+                <a href="5package_egypt.html" class="btn btn-success">See more</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="antique-white py-5">
+        <h1 class="h2 pb-4 px-4">Saved Lists</h1>
+        <div class="container-fluid px-4">
+            <div class="row" id="bookmark_container">
+            </div>
+    </div>
+    <footer class="text-center text-lg-start text-white header-footer-color">
+        <div class="container p-4 pb-0">
+            <div class="row">
+              <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
+              </div>
+              <hr class="w-100 clearfix d-md-none" />
+              <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
+                <h6 class="text-uppercase mb-4 font-weight-bold">Travel Lander</h6>
+                <a href="4About_us.html" class="text-white d-block text-decoration-none">About us</a></p>
+                <a href="3Contact_us.html" class="text-white d-block text-decoration-none">Contact us</a></p>
+                <a href="6FAQ.html" class="text-white d-block text-decoration-none">FAQ</a>
+              </div>
+              <hr class="w-100 clearfix d-md-none" />
+              <hr class="w-100 clearfix d-md-none" />
+              <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mt-3">
+                <h6 class="text-uppercase mb-4 font-weight-bold">Follow us</h6>
+                <a class="d-block" href="http://www.facebook.com/"><img title="FaceBook" id="facebook_icon" src="src_pictures/facebook.png" alt="Facebook icon" width="40px" height="40px"></a>
+                <a class="d-block" href="http://www.instagram.com/"><img title="Instagram" id="instgram_icon" src="src_pictures/instagram.png" alt="Instagram icon" width="40px" height="40px"></a>
+                <a class="d-block" href="http://www.twitter.com/"><img title="Twitter" id="twitter_icon" src="src_pictures/twitter.png" alt="Twitter icon" width="40px" height="40px"></a>
+              </div>
+            </div>
+        </div>
+        <div class="text-center p-2 container-fluid footer-bed-color">
+           <em><small>© 2020 All rights are reserved 2022</small></em>
+        </div>
+    </footer>
+</body>
+</html>

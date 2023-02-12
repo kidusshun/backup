@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="index.css" rel="stylesheet">
+        <script src="js/bootstrap.min.js"></script>
+        <title>TRAVEL LANDER| Contact us</title>
+    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-lg py-0 header-footer-color">
+                <div class="container-fluid">
+                    <div class="d-flex align-items-center">
+                        <button class="navbar-toggler justify-content-start border-white py-1 px-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <img src="src_pictures/menu-icon.png" alt="menu icon" width="25px" height="20px" >
+                        </button>
+                        <span class="p-3 d-flex flex-column align-items-start">
+                            <img class="img" src="src_pictures/logo.png" alt="company logo" width="50px" height="50px">
+                            <span class="text-warning">Travel Lander</span>
+                        </span>
+                    </div>
+                    <div class="collapse navbar-collapse justify-content-end align-items-end" id="navbarSupportedContent" style="height:100px;">
+                        <div class="me-5">
+                            <ul class="navbar-nav">
+                                <li class="nav-item px-3">
+                                    <a class="nav-link text-white" href="index.html">Home</a>
+                                </li>
+                                <li class="nav-item px-3">
+                                    <a class="nav-link text-white" href="4About_us.html">About us</a>
+                                    <div class="mask" style="background-color: rgba(82, 76, 76, 0.829)"></div>
+                                </li>
+                                <li class="nav-item px-3">
+                                    <a class="nav-link text-white" href="2Destinations.html">Destinations</a>
+                                </li>
+                                <li class="nav-item active-nav-item px-3">
+                                    <a class="nav-link text-white" href="3Contact_us.html">Contact us</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <section class="bg-secondary rounded-circle p-1 mx-4">
+                        <div class="user-logo"><a title="My Account" href="7My_Account.html"><img class="user-logo__img" src="src_pictures/user-solid.svg" alt="user logo" height="25px" width="28px"></a></div>
+                    </section>
+                </div>
+            </nav>
+        </header>
+        <div class="antique-white row gx-0">
+            <div class="ps-5 description col-lg-8">
+                <h1 class="my-4 description__h1">Contact us</h1>
+                <h2 class="my-2description__h2">Have a question?</h2>
+                <p class="my-4 description__p">Complete the below section and we will get intouch shortly.</p>
+                <form class="continer-float my-5">
+                    <div class="row gx-0">
+                        <section class="col-lg-6 my-2">
+                            <label for="fname">F.name:</label>
+                            <input id="fname" class= "input" type="text" placeholder="First Name">
+                            <small id="small">*Required</small>
+                        </section>
+                        <section class="col-lg-6 my-2">
+                            <label for="lname">L.name:</label>
+                            <input id="lname" class= "input" type="text" placeholder="Last Name">
+                            <small id="small">*Required</small>
+                        </section>
+                    </div>
+                    <div class="row gx-0 my-4">
+                        <section class="col-lg-6 my-2">
+                            <label for="email">Email:</label>
+                            <input id="email" class= "input" type="text" placeholder="Email">
+                            <small id="small">*Required</small>
+                        </section>
+                        <section class="col-lg-6 my-2">
+                            <label id="phone-number__code" for=country-code>Code:</label>
+                            <select Class="country-code" id="country-code">
+                                <option class="country-code__options" value="" select="selected">-Country-</option>
+                                <option class="country-code__options" vlaue="" select="selected">CAN(+1)</option>
+                                <option class="country-code__options" vlaue="" select="selected">ETH(+251)</option>
+                                <option class="country-code__options" vlaue="" select="selected">USA(+1)</option>
+                                <option class="country-code__options" vlaue="" select="selected">NGA(+234)</option>
+                                <option class="country-code__options" vlaue="" select="selected">RUS(+7)</option>
+                            </select>
+                            <label for="phone-number__number">Phone:</label>
+                            <input id="phone-number__number" type="text" placeholder="Phone Number">
+                            <small id="small">*Required</small>
+                        </section>
+                    </div>
+                    <div class="row gx-0 flex-direction-column">
+                        <section class="mb-2">
+                            <label for="message">Message:</label>
+                            <input id="message" class= "w-75 my-3" type="text" placeholder="Message" style="padding-bottom: 148px;">
+                            <small id="small">*Required</small>
+                        </section>
+                        <section class="d-flex px-0">
+                            <button id="submit-button" class="button border-0 text-white" type="submit" onclick="messaging()">Submit</button>
+                        </section>
+                    </div>
+                </form>
+            </div>
+            <div class="d-flex align-items-end mb-5 col-lg-2">
+                <div class="container gx-0 dark-antique flex-direction-column">
+                    <section class="py-4 px-2">
+                        <h2 class="office-hours-upper__h2">Office hours</h2>
+                        <p class="office-hours-upper__p">If you need additional service, you can stop by our office.</p>
+                        <section id="phone">
+                            <img src="src_pictures/phone.svg" alt="Phone icon" height="20px" width="20px">
+                            +251942512869
+                        </section>
+                        <section id="location">
+                            <img src="src_pictures/location.svg" alt="Location icon" height="20px" width="20px">
+                            Djibouti Street, Bole, A.A
+                        </section>
+                    </section>
+                    <section class="py-5 px-2 dark-antique-bottom">
+                    <table class="opening-hours-table">
+                        <tr>
+                            <th class="opening-hours-table__th">Opening Hours</th>
+                            <th class="opening-hours-table__th">.</th>
+                        </tr>
+                        <tr>
+                            <td class="opening-hours-table__td">Monday-Friday</td>
+                            <td class="opening-hours-table__td">2am-5pm</td>
+                        </tr>
+                        <tr>
+                            <td class="opening-hours-table__td">Saturday</td>
+                            <td class="opening-hours-table__td">2am-1pm</td>
+                        </tr>
+                    </table> 
+                    </section>
+                </div>
+            </div>
+        </div>
+        <footer class="text-center text-lg-start text-white header-footer-color">
+            <div class="container p-4 pb-0">
+                <div class="row">
+                  <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
+                  </div>
+                  <hr class="w-100 clearfix d-md-none" />
+                  <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
+                    <h6 class="text-uppercase mb-4 font-weight-bold">Travel Lander</h6>
+                    <a href="4About_us.html" class="text-white d-block text-decoration-none">About us</a></p>
+                    <a href="3Contact_us.html" class="text-warning d-block text-decoration-none">Contact us</a></p>
+                    <a href="6FAQ.html" class="text-white d-block text-decoration-none">FAQ</a>
+                  </div>
+                  <hr class="w-100 clearfix d-md-none" />
+                  <hr class="w-100 clearfix d-md-none" />
+                  <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mt-3">
+                    <h6 class="text-uppercase mb-4 font-weight-bold">Follow us</h6>
+                    <a class="d-block" href="http://www.facebook.com/"><img title="FaceBook" id="facebook_icon" src="src_pictures/facebook.png" alt="Facebook icon" width="40px" height="40px"></a>
+                    <a class="d-block" href="http://www.instagram.com/"><img title="Instagram" id="instgram_icon" src="src_pictures/instagram.png" alt="Instagram icon" width="40px" height="40px"></a>
+                    <a class="d-block" href="http://www.twitter.com/"><img title="Twitter" id="twitter_icon" src="src_pictures/twitter.png" alt="Twitter icon" width="40px" height="40px"></a>
+                  </div>
+                </div>
+            </div>
+            <div class="text-center p-2 container-fluid footer-bed-color">
+               <em><small>© 2020 All rights are reserved 2022</small></em>
+            </div>
+        </footer>
+<!--form validator-->
+        <script>
+            // const but= document.getElementById('submit-button')
+            // but.addEventListener('click',messaging())
+            async function messaging(){
+                const firstNameInput = document.getElementById('fname');
+                const lastNameInput = document.getElementById('lname');
+                const emailInput = document.getElementById('email');
+                const countryCodeInput = document.getElementById('country-code');
+                const phoneNumberInput = document.getElementById('phone-number__number');
+                const messageInput = document.getElementById('message');
+
+                const firstName = firstNameInput.value;
+                const lastName = lastNameInput.value;
+                const email = emailInput.value;
+                const countryCode = countryCodeInput.value;
+                const phoneNumber = phoneNumberInput.value;
+                const phone= countryCode+phoneNumber
+                const message = messageInput.value;
+                const response = await fetch(
+                    'http://localhost:3333/contact',{
+                        method:'PUT',
+                        headers:{
+                            'Content-Type': 'application/json',
+                        },
+                        body:JSON.stringify({
+                            firstName:firstName,
+                            lastName:lastName,
+                            email:email,
+                            phone:phone,
+                            message:message
+                        })
+                    }
+                )
+                alert('sent')
+            }
+        </script>
+        <script src="form.js"></script>
+    </body>
+</html>
